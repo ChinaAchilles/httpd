@@ -20,23 +20,27 @@ int main()
 			arg[i]='\0';
 		}
 	}
-	cout<<arg<<endl;
+	char buf[1024]={0};
+	urldecode(arg,buf);
+	cout<<arg<<endl;																	////////////////////////////////////////////
 
 //	string name="张三";	
-//	string school="北大";
-//	string hobby="敲代码";
-//	name=zhangsan&school=xigongyuan&hobby=eat
-	
-	strtok(arg,"&=");
+//	string tel="10086";
+//	string addr="陕西西安";
+//	string school="西安工业大学";
+
+	strtok(buf,"&=");
 	string name=strtok(NULL,"&=");
 	strtok(NULL,"&=");
-	string school=strtok(NULL,"&=");
+	string tel=strtok(NULL,"&=");
 	strtok(NULL,"&=");
-	string hobby=strtok(NULL,"&=");
+	string addr=strtok(NULL,"&=");
+	strtok(NULL,"&=");
+	string school=strtok(NULL,"&=");
 
 	MYSQL *myfd=initMysql();
 	connectMysql(myfd);
-	insertMysql(myfd,name,school,hobby);
+	insertMysql(myfd,name,tel,addr,school);
 	connectClose(myfd);
 	return 0;
 }
