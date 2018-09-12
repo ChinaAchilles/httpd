@@ -9,5 +9,5 @@ $bin:$src
 	$cc -o \$@ \$^ \$(LDFLAGS)
 .PHONY:clean
 clean:
-	rm -f bin
+	rm -f $bin
 EOF
