@@ -320,7 +320,7 @@ end:
 	close(sock);
 }
 
-int startup(int port)
+int startup()
 {
 	int sock = socket(AF_INET,SOCK_STREAM,0);
 	if(sock < 0)
@@ -335,7 +335,7 @@ int startup(int port)
 	struct sockaddr_in local;
 	local.sin_family = AF_INET;
 	local.sin_addr.s_addr = htons(INADDR_ANY);
-	local.sin_port = htons(port);
+	local.sin_port = htons(80);
 
 	if(bind(sock,(struct sockaddr*)&local,sizeof(local)) < 0){
 		perror("bind");
@@ -350,12 +350,8 @@ int startup(int port)
 
 int main(int argc,char *argv[])
 {
-	if(argc != 2){
-		usage(argv[0]);
-		return 1;
-	}
 	signal(SIGPIPE,SIG_IGN);
-	int listen_sock = startup(atoi(argv[1]));
+	int listen_sock = startup();
 
 	for(;;){
 		struct sockaddr_in client;
